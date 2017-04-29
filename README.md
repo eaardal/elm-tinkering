@@ -1,4 +1,4 @@
-# Elm hacking
+# :wrench: Elm tinkering :nut_and_bolts:
 
 ## Install
 
