@@ -6,6 +6,9 @@ import Graphics.Render exposing (Form, circle, solid, ellipse, filledAndBordered
 import Color exposing (rgb)
 
 
+-- http://swapi.co/
+
+
 type Terrain
     = Desert
     | Grasslands
@@ -32,9 +35,9 @@ type alias Model =
 
 init : ( Model, Cmd Msg )
 init =
-    ( [ { name = "Hoth", diameter = 7200, terrain = Tundra }
-      , { name = "Tatooine", diameter = 10465, terrain = Desert }
-      , { name = "Alderaan", diameter = 12500, terrain = Grasslands }
+    ( [ { name = "Hoth", diameter = 7200, terrain = Tundra } -- http://swapi.co/api/planets/4/
+      , { name = "Tatooine", diameter = 10465, terrain = Desert } -- http://swapi.co/api/planets/1/
+      , { name = "Alderaan", diameter = 12500, terrain = Grasslands } -- http://swapi.co/api/planets/2/
       ]
     , Cmd.none
     )
@@ -52,8 +55,8 @@ type Msg
 -- VIEW
 
 
-calculateSize : Int -> Float
-calculateSize diameter =
+calculateDrawingSize : Int -> Float
+calculateDrawingSize diameter =
     ((toFloat diameter) / 100)
 
 
@@ -79,9 +82,9 @@ colorForTerrain terrain =
             rgb 93 124 59
 
 
-redCircle : Int -> Terrain -> Form Msg
-redCircle diameter terrain =
-    ellipse (calculateSize diameter) (calculateSize diameter)
+drawPlanet : Int -> Terrain -> Form Msg
+drawPlanet diameter terrain =
+    ellipse (calculateDrawingSize diameter) (calculateDrawingSize diameter)
         |> filledAndBordered (solid <| (colorForTerrain terrain)) 1 (solid <| rgb 0 0 0)
         |> position ( 155, 155 )
 
@@ -96,7 +99,7 @@ view model =
                         [ Html.h1 [] [ Html.text item.name ]
                         , Html.p [] [ Html.text <| "Diameter: " ++ (toString item.diameter) ]
                         , Html.p [] [ Html.text <| "Terrain: " ++ (toString item.terrain) ]
-                        , (redCircle item.diameter item.terrain) |> svg 200 200 310 310
+                        , (drawPlanet item.diameter item.terrain) |> svg 200 200 310 310
                         ]
                 )
             |> div []
