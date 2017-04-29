@@ -1,4 +1,4 @@
-# :wrench: Elm tinkering :nut_and_bolts:
+# :wrench: Elm tinkering :nut_and_bolt:
 
 ## Install
 
